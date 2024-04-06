@@ -68,9 +68,6 @@ def get_test_results(commit):
 # }
 
 
-from datetime import datetime
-
-
 def calculate_duration(started_at: str, completed_at: str) -> str:
     start_time = datetime.fromisoformat(started_at.replace("Z", "+00:00"))
     end_time = datetime.fromisoformat(completed_at.replace("Z", "+00:00"))
@@ -86,8 +83,8 @@ def format_comment_body(results: dict, details_url: str) -> str:
     status_emoji = {"PASS": "✅", "FAIL": "❌", "ERROR": "⚠️"}
 
     # Start with a title and overall status
-    body = f"#### 🧪 Network Simulation Test Results for Commit: `{results['hash']}`\n"
-    body += f"Overall Status: {status_emoji.get(results['overall_status'], '❓')} **{results['overall_status']}** ([details]({details_url}))\n\n"
+    body = f"#### 🧪 Network simulation test results for commit: `{results['hash']}`\n"
+    body += f"Overall status: {status_emoji.get(results['overall_status'], '❓')} **{results['overall_status']}** ([details]({details_url}))\n\n"
 
     body += f"---\n\n"
 
@@ -109,8 +106,8 @@ def in_progress_comment_body(commit_hash: str) -> str:
     status_emoji = "⏳"
 
     # Formatting the comment body
-    body = f"#### 🧪 Network Simulation Test Results for Commit: `{commit_hash}`\n"
-    body += f"Overall Status: {status_emoji} **TESTING**\n\n"
+    body = f"#### 🧪 Network simulation test results for commit: `{commit_hash}`\n"
+    body += f"Overall status: {status_emoji} **TESTING**\n\n"
 
     body += FOOTER
 
