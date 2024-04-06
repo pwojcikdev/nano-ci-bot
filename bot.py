@@ -10,6 +10,7 @@ env.read_env()  # Read .env into os.environ
 
 BOT_NAME = "nano-continuous-testing-bot"
 LABEL_NAME = "continuous-testing"
+MAX_PRS = 40  # Maximum number of PRs to scan
 
 APP_ID = env("APP_ID")
 PRIVATE_KEY = env("PRIVATE_KEY")
@@ -118,8 +119,12 @@ def update_or_create_comment(g: Github, pr: github.PullRequest.PullRequest, body
     comments = pr.get_issue_comments()
     for comment in comments:
         if comment.user.login == f"{BOT_NAME}[bot]":
-            print("Updating existing comment")
-            comment.edit(body)
+            if comment.body != body:
+                print("Updating existing comment")
+                comment.edit(body)
+            else:
+                print("Comment already up-to-date")
+
             return
 
     print("Creating new comment")
@@ -161,7 +166,7 @@ def process_pr(g: Github, repo: github.Repository.Repository, pr: github.PullReq
 
 
 def process_repo(g: Github, repo: github.Repository.Repository):
-    pull_requests = repo.get_pulls(state="open")
+    pull_requests = repo.get_pulls(state="open")[:MAX_PRS]
     for pr in pull_requests:
         print("Found PR:", pr.number)
         process_pr(g, repo, pr)
