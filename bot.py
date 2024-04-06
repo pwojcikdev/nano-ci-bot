@@ -17,6 +17,10 @@ MAX_PRS = 40  # Maximum number of PRs to scan
 APP_ID = env("APP_ID")
 PRIVATE_KEY = env("PRIVATE_KEY")
 
+print("Starting the bot...")
+print("APP_ID:", APP_ID)
+print("PRIVATE_KEY:", PRIVATE_KEY)
+
 
 def get_test_results(commit):
     url = f"https://raw.githubusercontent.com/gr0vity-dev/nano-node-builder/main/continuous_testing/{commit}.json"

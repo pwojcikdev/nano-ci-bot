@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nano-continuous-testing-bot
+    restart: unless-stopped
