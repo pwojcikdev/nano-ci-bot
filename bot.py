@@ -1,3 +1,5 @@
+import argparse
+import time
 from datetime import datetime
 
 import github
@@ -189,6 +191,16 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--interval", type=int, default=60, help="Interval between runs in seconds. Default is 60 seconds."
+    )
+    args = parser.parse_args()
+
+    while True:
+        main()
+
+        print(f"Waiting for {args.interval} seconds before the next run...")
+        time.sleep(args.interval)
 
     pass
